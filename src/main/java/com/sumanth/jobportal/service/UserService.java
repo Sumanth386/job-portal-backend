@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.sumanth.jobportal.entity.User;
 import com.sumanth.jobportal.repository.UserRepository;
 
+import com.sumanth.jobportal.exception.ResourceNotFoundException;
+
 @Service
 public class UserService {
 
@@ -29,6 +31,7 @@ public class UserService {
     // Get user by ID
     public User getUserById(Integer id) {
 
-        return userRepository.findById(id).orElse(null);
+    	return userRepository.findById(id)
+    			.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 }
